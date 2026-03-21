@@ -28,7 +28,7 @@ class AppFont {
 
   AppFont(this.width);
 
-  double get small => width * 0.03;
+  double get small => width * 0.045;
   double get medium => width * 0.04;
   double get large => width * 0.05;
 }
