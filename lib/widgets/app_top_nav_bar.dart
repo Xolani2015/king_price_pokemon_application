@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 
-
-class AppCustomTopBar extends StatelessWidget implements PreferredSizeWidget {
+class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isHomePage;
   final String? title;
   final VoidCallback? onMenuTap;
@@ -11,7 +10,7 @@ class AppCustomTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String logoPath;
   final IconData actionIcon;
 
-  const AppCustomTopBar({
+  const AppTopNavBar({
     super.key,
     required this.isHomePage,
     this.title,
@@ -39,10 +38,7 @@ class AppCustomTopBar extends StatelessWidget implements PreferredSizeWidget {
             Row(
               children: [
                 if (isHomePage)
-                  IconButton(
-                    icon: const Icon(Icons.menu),
-                    onPressed: onMenuTap,
-                  )
+                  IconButton(icon: const Icon(Icons.menu), onPressed: onMenuTap)
                 else
                   IconButton(
                     icon: const Icon(Icons.arrow_back),
@@ -52,26 +48,17 @@ class AppCustomTopBar extends StatelessWidget implements PreferredSizeWidget {
             ),
             Row(
               children: [
-                Image.asset(
-                  logoPath,
-                  height: sizes.height * 0.04,
-                ),
+                Image.asset(logoPath, height: sizes.height * 0.04),
                 if (!isHomePage) ...[
                   sizes.space.small,
                   Text(
                     title ?? '',
-                    style: TextStyle(
-                      fontSize: sizes.font.medium,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: sizes.font.medium, fontWeight: FontWeight.w600),
                   ),
-                ]
+                ],
               ],
             ),
-            IconButton(
-              icon: Icon(actionIcon),
-              onPressed: onActionTap,
-            ),
+            IconButton(icon: Icon(actionIcon), onPressed: onActionTap),
           ],
         ),
       ),
