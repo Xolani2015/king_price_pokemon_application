@@ -1,8 +1,6 @@
-// pages/registration_page.dart
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
 import 'package:king_price_pokemon_application/views/login/login_viewmodel.dart';
-import 'package:king_price_pokemon_application/views/registration/registration_viewmodel.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_textfield.dart';
 import 'package:provider/provider.dart';
