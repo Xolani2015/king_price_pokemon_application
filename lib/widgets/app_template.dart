@@ -25,7 +25,7 @@ class _AppTemplateState extends State<AppTemplate> {
       appBar: widget.isShowTopBar == true
           ? AppCustomTopBar(
               isHomePage: true,
-              logoPath: 'assets/branding/app_logo.webp',
+              logoPath: 'assets/images/app_logo.webp',
               onMenuTap: () {},
               onActionTap: () {},
             )
