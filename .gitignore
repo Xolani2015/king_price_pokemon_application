@@ -10,12 +10,16 @@ ios/Flutter/Flutter.podspec
 .dart_tool/
 .dart_tool/flutter_build/*
 
-# Xcode
+# Xcode and IOS
 ios/Pods/
 ios/.symlinks/
 ios/Runner.xcworkspace/
 ios/DerivedData/
 ios/.DS_Store
+macos/Flutter/Flutter-*.xcconfig
+macos/Flutter/GeneratedPluginRegistrant.swift
+.dart_tool/
+build/
 
 # Android
 android/.gradle/
