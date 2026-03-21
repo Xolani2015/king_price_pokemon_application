@@ -27,39 +27,44 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     final sizes = AppSizes(context);
-    return AppBar(
-      elevation: 0,
-      titleSpacing: 0,
-      title: Padding(
-        padding: sizes.padding.medium,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                if (isHomePage)
-                  IconButton(icon: const Icon(Icons.menu), onPressed: onMenuTap)
-                else
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    onPressed: onBackTap ?? () => Navigator.pop(context),
-                  ),
-              ],
-            ),
-            Row(
-              children: [
-                Image.asset(logoPath, height: sizes.height * 0.04),
-                if (!isHomePage) ...[
-                  sizes.space.small,
-                  Text(
-                    title ?? '',
-                    style: TextStyle(fontSize: sizes.font.medium, fontWeight: FontWeight.w600),
-                  ),
+    return Container(
+      decoration: const BoxDecoration(
+        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 4))],
+      ),
+      child: AppBar(
+        elevation: 0,
+        titleSpacing: 0,
+        title: Padding(
+          padding: sizes.padding.medium,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  if (isHomePage)
+                    IconButton(icon: const Icon(Icons.menu), onPressed: onMenuTap)
+                  else
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: onBackTap ?? () => Navigator.pop(context),
+                    ),
                 ],
-              ],
-            ),
-            IconButton(icon: Icon(actionIcon), onPressed: onActionTap),
-          ],
+              ),
+              Row(
+                children: [
+                  Image.asset(logoPath, height: sizes.height * 0.04),
+                  if (!isHomePage) ...[
+                    sizes.space.small,
+                    Text(
+                      title ?? '',
+                      style: TextStyle(fontSize: sizes.font.medium, fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ],
+              ),
+              IconButton(icon: Icon(actionIcon), onPressed: onActionTap),
+            ],
+          ),
         ),
       ),
     );
