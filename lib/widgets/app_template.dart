@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
-import 'package:king_price_pokemon_application/widgets/app_custom_to_bar.dart';
-
+import 'package:king_price_pokemon_application/widgets/app_top_nav_bar.dart';
 
 class AppTemplate extends StatefulWidget {
   const AppTemplate({
@@ -23,17 +22,14 @@ class _AppTemplateState extends State<AppTemplate> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: widget.isShowTopBar == true
-          ? AppCustomTopBar(
+          ? AppTopNavBar(
               isHomePage: true,
               logoPath: 'assets/images/app_logo.webp',
               onMenuTap: () {},
               onActionTap: () {},
             )
           : null,
-      body: Padding(
-        padding: AppSizes(context).padding.medium,
-        child: widget.page,
-      ),
+      body: Padding(padding: AppSizes(context).padding.medium, child: widget.page),
       floatingActionButton: FloatingActionButton(
         onPressed: null,
         tooltip: 'Increment',
