@@ -22,3 +22,5 @@ android/app/build/
 android/local.properties
 .dart_tool/flutter_build
 
+# Pages cache
+registration_page
