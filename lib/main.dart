@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:king_price_pokemon_application/views/registration/registration_page.dart';
+import 'package:king_price_pokemon_application/views/landing/landing_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: const RegistrationPage(title: 'Flutter Demo Home Page'),
+      home: const LandingPage(),
     );
   }
 }
