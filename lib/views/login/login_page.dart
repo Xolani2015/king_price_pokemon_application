@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
 import 'package:king_price_pokemon_application/views/login/login_viewmodel.dart';
@@ -20,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (_) => LoginViewModel(),
       child: Consumer<LoginViewModel>(
@@ -33,7 +35,24 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Login', style: Theme.of(context).textTheme.headlineMedium),
+                Text(
+                  'LOG IN',
+                  style: TextStyle(
+                    fontSize: AppSizes(context).font.large,
+                    color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: AppSizes(context).space.medium),
+                Text(
+                  'Enter your credentials to access your account',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: AppSizes(context).font.medium,
+                    color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
+                    fontWeight: FontWeight.normal,
+                  ),
+                ),
                 SizedBox(height: AppSizes(context).space.medium),
                 AppTextField(controller: emailController, label: 'Email'),
                 SizedBox(height: AppSizes(context).space.small),

@@ -8,7 +8,6 @@ class AppButton extends StatelessWidget {
   final bool isLoading;
   final double height;
   final bool isSecondaryButton;
-  final bool isEnabled;
 
   const AppButton({
     super.key,
@@ -17,12 +16,10 @@ class AppButton extends StatelessWidget {
     this.isLoading = false,
     this.height = 65,
     this.isSecondaryButton = false,
-    this.isEnabled = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    final primaryColor = const Color.fromARGB(255, 189, 25, 13);
     final appSizes = AppSizes(context);
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
@@ -34,14 +31,16 @@ class AppButton extends StatelessWidget {
                 : Theme.of(context).scaffoldBackgroundColor)
           : (isDark ? AppColors.darkPrimaryButtonBackground : AppColors.primaryButtonBackground),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      side: isSecondaryButton ? BorderSide(color: primaryColor, width: 2) : BorderSide.none,
+      side: isSecondaryButton
+          ? BorderSide(color: Theme.of(context).primaryColor, width: 2)
+          : BorderSide.none,
     );
 
     return SizedBox(
       height: height,
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: (isEnabled && !isLoading) ? onPressed : null,
+        onPressed: (!isLoading) ? onPressed : null,
         style: buttonStyle,
         child: isLoading
             ? SizedBox(
@@ -49,13 +48,13 @@ class AppButton extends StatelessWidget {
                 width: 24,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  color: isSecondaryButton ? primaryColor : Colors.white,
+                  color: isSecondaryButton ? Theme.of(context).primaryColor : Colors.white,
                 ),
               )
             : Text(
                 text,
                 style: TextStyle(
-                  color: isSecondaryButton ? primaryColor : Colors.white,
+                  color: isSecondaryButton ? Theme.of(context).primaryColor : Colors.white,
                   fontWeight: FontWeight.w600,
                   fontSize: appSizes.font.medium,
                 ),

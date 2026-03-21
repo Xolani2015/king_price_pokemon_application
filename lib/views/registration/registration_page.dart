@@ -1,5 +1,6 @@
 // pages/registration_page.dart
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
 import 'package:king_price_pokemon_application/views/login/login_page.dart';
@@ -7,6 +8,7 @@ import 'package:king_price_pokemon_application/views/registration/registration_v
 import 'package:king_price_pokemon_application/widgets/app_button.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_textfield.dart';
+import 'package:king_price_pokemon_application/widgets/app_toast.dart';
 import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -24,6 +26,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (_) => RegistrationViewModel(),
       child: Consumer<RegistrationViewModel>(
@@ -41,7 +44,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   'Register',
                   style: TextStyle(
                     fontSize: AppSizes(context).font.large,
-                    color: const Color.fromARGB(255, 184, 184, 184),
+                    color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -51,7 +54,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: AppSizes(context).font.medium,
-                    color: const Color.fromARGB(255, 184, 184, 184),
+                    color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
@@ -100,17 +103,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     await vm.registerUser(user);
 
                     if (vm.status == RegistrationStatus.success) {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(vm.message!)));
+                      showSuccessToast(context, vm.message ?? 'Registration Successful!');
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (_) => const LoginPage()),
                       );
                     } else if (vm.status == RegistrationStatus.error) {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(vm.message ?? 'Error')));
+                      showErrorToast(context, vm.message ?? 'Registration Failed');
                     }
                   },
                 ),

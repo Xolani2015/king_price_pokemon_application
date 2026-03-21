@@ -20,7 +20,6 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     final sizes = AppSizes(context);
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (_) => LandingViewModel(),
       child: Consumer<LandingViewModel>(

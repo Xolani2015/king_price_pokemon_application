@@ -41,4 +41,6 @@ class AppSpace {
   double get small => width * 0.03;
   double get medium => width * 0.04;
   double get large => width * 0.07;
+  double get xlarge => width * 0.15;
+  double get xxlarge => width * 0.5;
 }
