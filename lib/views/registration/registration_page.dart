@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
 import 'package:king_price_pokemon_application/views/login/login_page.dart';
 import 'package:king_price_pokemon_application/views/registration/registration_viewmodel.dart';
+import 'package:king_price_pokemon_application/widgets/app_button.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_textfield.dart';
 import 'package:provider/provider.dart';
@@ -47,18 +48,23 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   const SizedBox(height: 20),
                   vm.isLoading
                       ? const CircularProgressIndicator()
-                      : ElevatedButton(
+                      : AppButton(
+                          text: 'Register',
+                          isLoading: vm.isLoading,
                           onPressed: () async {
                             final user = UserModel(
                               username: usernameController.text,
                               email: emailController.text,
                               password: passwordController.text,
                             );
+
                             await vm.registerUser(user);
+
                             if (vm.status == RegistrationStatus.success) {
                               ScaffoldMessenger.of(
                                 context,
                               ).showSnackBar(SnackBar(content: Text(vm.message!)));
+
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(builder: (_) => const LoginPage()),
@@ -69,9 +75,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               ).showSnackBar(SnackBar(content: Text(vm.message ?? 'Error')));
                             }
                           },
-                          child: vm.isLoading
-                              ? const CircularProgressIndicator()
-                              : const Text('Register'),
                         ),
                 ],
               ),
