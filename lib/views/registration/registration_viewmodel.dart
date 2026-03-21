@@ -24,7 +24,7 @@ class RegistrationViewModel extends ChangeNotifier {
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       status = RegistrationStatus.error;
-      message = FirebaseErrorHelper.getMessage(e);
+      message = FirebaseErrorHelper.getRegistrationMessage(e);
       notifyListeners();
     } catch (e) {
       status = RegistrationStatus.error;
