@@ -15,6 +15,7 @@ ios/Pods/
 ios/.symlinks/
 ios/Runner.xcworkspace/
 ios/DerivedData/
+ios/.DS_Store
 
 # Android
 android/.gradle/
@@ -26,6 +27,7 @@ android/local.properties
 # Pages cache
 registration_page
 
-
-
+# Firebase configuration files
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
 
