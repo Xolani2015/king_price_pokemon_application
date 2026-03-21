@@ -8,6 +8,7 @@ build/
 ios/Flutter/Flutter.framework
 ios/Flutter/Flutter.podspec
 .dart_tool/
+.dart_tool/flutter_build/*
 
 # Xcode
 ios/Pods/
@@ -24,3 +25,7 @@ android/local.properties
 
 # Pages cache
 registration_page
+
+
+
+
