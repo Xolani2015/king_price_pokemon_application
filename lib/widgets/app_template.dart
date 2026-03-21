@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/widgets/app_top_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class AppTemplate extends StatefulWidget {
   const AppTemplate({
@@ -31,9 +33,14 @@ class _AppTemplateState extends State<AppTemplate> {
           : null,
       body: Padding(padding: AppSizes(context).padding.medium, child: widget.page),
       floatingActionButton: FloatingActionButton(
-        onPressed: null,
+        onPressed: () {
+          final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+          themeProvider.toggleTheme();
+        },
+        backgroundColor: Theme.of(context).primaryColor,
+
         tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        child: Icon(Icons.add, color: AppColors.darkText),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 
 class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
@@ -22,47 +23,68 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(70);
 
   @override
   Widget build(BuildContext context) {
     final sizes = AppSizes(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
-      decoration: const BoxDecoration(
-        boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 6, offset: Offset(0, 4))],
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(color: Theme.of(context).shadowColor, blurRadius: 6, offset: Offset(0, 4)),
+        ],
       ),
       child: AppBar(
         elevation: 0,
         titleSpacing: 0,
+        toolbarHeight: sizes.height * 0.5,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         title: Padding(
-          padding: sizes.padding.medium,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
             children: [
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (isHomePage)
-                    IconButton(icon: const Icon(Icons.menu), onPressed: onMenuTap)
-                  else
-                    IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: onBackTap ?? () => Navigator.pop(context),
-                    ),
+                  Row(
+                    children: [
+                      if (isHomePage)
+                        IconButton(
+                          icon: Icon(
+                            Icons.menu,
+                            color: isDark ? AppColors.darkIcon : AppColors.icon,
+                          ),
+                          onPressed: onMenuTap,
+                        )
+                      else
+                        IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: onBackTap ?? () => Navigator.pop(context),
+                        ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Image.asset(logoPath, height: sizes.height * 0.05),
+                      if (!isHomePage) ...[
+                        sizes.space.small,
+                        Text(
+                          title ?? '',
+                          style: TextStyle(
+                            fontSize: sizes.font.medium,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                  IconButton(
+                    icon: Icon(actionIcon, color: isDark ? AppColors.darkIcon : AppColors.icon),
+                    onPressed: onActionTap,
+                  ),
                 ],
               ),
-              Row(
-                children: [
-                  Image.asset(logoPath, height: sizes.height * 0.04),
-                  if (!isHomePage) ...[
-                    sizes.space.small,
-                    Text(
-                      title ?? '',
-                      style: TextStyle(fontSize: sizes.font.medium, fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ],
-              ),
-              IconButton(icon: Icon(actionIcon), onPressed: onActionTap),
             ],
           ),
         ),

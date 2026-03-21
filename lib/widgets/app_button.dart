@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 
 class AppButton extends StatelessWidget {
@@ -6,7 +7,6 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool isLoading;
   final double height;
-  final Color? backgroundColor;
   final bool isSecondaryButton;
 
   const AppButton({
@@ -15,7 +15,6 @@ class AppButton extends StatelessWidget {
     required this.onPressed,
     this.isLoading = false,
     this.height = 50,
-    this.backgroundColor,
     this.isSecondaryButton = false,
   });
 
@@ -23,17 +22,23 @@ class AppButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final primaryColor = const Color.fromARGB(255, 189, 25, 13);
     final appSizes = AppSizes(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
+      elevation: 0,
+      backgroundColor: isSecondaryButton
+          ? (isDark
+                ? Theme.of(context).scaffoldBackgroundColor
+                : Theme.of(context).scaffoldBackgroundColor)
+          : (isDark ? AppColors.darkPrimaryButtonBackground : AppColors.primaryButtonBackground),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      side: isSecondaryButton ? BorderSide(color: primaryColor, width: 2) : BorderSide.none,
+    );
     return SizedBox(
       height: height,
       width: double.infinity,
       child: ElevatedButton(
         onPressed: isLoading ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          elevation: 0,
-          backgroundColor: isSecondaryButton ? Colors.white : (backgroundColor ?? primaryColor),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          side: isSecondaryButton ? BorderSide(color: primaryColor, width: 2) : BorderSide.none,
-        ),
+        style: buttonStyle,
         child: isLoading
             ? SizedBox(
                 height: 20,

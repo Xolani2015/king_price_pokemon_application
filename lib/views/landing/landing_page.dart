@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/views/landing/landing_viewmodel.dart';
 import 'package:king_price_pokemon_application/widgets/app_button.dart';
@@ -17,6 +18,7 @@ class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
     final sizes = AppSizes(context);
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return ChangeNotifierProvider(
       create: (_) => LandingViewModel(),
       child: Consumer<LandingViewModel>(
@@ -42,10 +44,11 @@ class _LandingPageState extends State<LandingPage> {
 
                         child: Column(
                           children: [
-                            AppButton(text: 'Login', onPressed: () async {}),
+                            AppButton(text: 'LOG IN', onPressed: () async {}),
                             const SizedBox(height: 20),
                             AppButton(
-                              text: 'Register',
+                              text: 'REGSITER',
+
                               isSecondaryButton: true,
                               onPressed: () async {},
                             ),
