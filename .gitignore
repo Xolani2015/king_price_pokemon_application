@@ -1,0 +1,24 @@
+# Flutter build 
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+.dart_tool/
+
+# Xcode
+ios/Pods/
+ios/.symlinks/
+ios/Runner.xcworkspace/
+ios/DerivedData/
+
+# Android
+android/.gradle/
+android/app/build/
+.dart_tool/flutter_build/013ccc8635710954846749a696a32da0/dart_build_result.json
+android/local.properties
+.dart_tool/flutter_build
+
