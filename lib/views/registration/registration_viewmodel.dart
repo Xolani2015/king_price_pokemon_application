@@ -11,6 +11,34 @@ class RegistrationViewModel extends ChangeNotifier {
   RegistrationStatus status = RegistrationStatus.idle;
   String? message;
   bool get isLoading => status == RegistrationStatus.loading;
+  Map<String, String?> fieldErrors = {};
+  Map<String, String?> validateUser(UserModel user, String confirmPassword) {
+    final errors = <String, String?>{};
+
+    if (user.username.isEmpty) {
+      errors['username'] = 'Name is required';
+    }
+    if (user.email.isEmpty) {
+      errors['email'] = 'Email is required';
+    } else {
+      final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+      if (!emailRegex.hasMatch(user.email)) {
+        errors['email'] = 'Whoops, this email is invalid';
+      }
+    }
+    if (user.password.isEmpty) {
+      errors['password'] = 'Password is required';
+    } else if (user.password.length < 6) {
+      errors['password'] = 'Password must be at least 6 characters';
+    }
+    if (user.password != confirmPassword) {
+      errors['confirmPassword'] = 'Whoops, the passwords do not match';
+    }
+
+    fieldErrors = errors;
+    notifyListeners();
+    return errors;
+  }
 
   Future<void> registerUser(UserModel user) async {
     status = RegistrationStatus.loading;
@@ -28,7 +56,7 @@ class RegistrationViewModel extends ChangeNotifier {
       notifyListeners();
     } catch (e) {
       status = RegistrationStatus.error;
-      message = 'Something went wrong. Please try again.2';
+      message = 'Something went wrong. Please try again.';
       notifyListeners();
     }
   }

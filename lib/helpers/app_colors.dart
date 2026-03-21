@@ -9,6 +9,9 @@ class AppColors {
   static const text = Colors.black;
   static const cardShadow = Colors.black12;
   static const primaryButtonBackground = primary;
+  static const textInputBorderBackground = Color.fromARGB(255, 215, 186, 0);
+  static const errorText = Colors.red;
+  static const errorBorder = Colors.red;
   static const secondaryPrimaryBackground = Colors.white;
   static const icon = Color(0xFFBD190D);
   static const iconContinanerBackground = Color.fromARGB(73, 126, 126, 126);

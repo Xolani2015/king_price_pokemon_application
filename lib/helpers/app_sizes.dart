@@ -28,9 +28,9 @@ class AppFont {
 
   AppFont(this.width);
 
-  double get small => width * 0.045;
-  double get medium => width * 0.04;
-  double get large => width * 0.05;
+  double get small => width * 0.03;
+  double get medium => width * 0.045;
+  double get large => width * 0.075;
 }
 
 class AppSpace {
@@ -38,7 +38,7 @@ class AppSpace {
 
   AppSpace(this.width);
 
-  SizedBox get small => SizedBox(height: width * 0.02);
-  SizedBox get medium => SizedBox(height: width * 0.04);
-  SizedBox get large => SizedBox(height: width * 0.06);
+  double get small => width * 0.03;
+  double get medium => width * 0.04;
+  double get large => width * 0.07;
 }

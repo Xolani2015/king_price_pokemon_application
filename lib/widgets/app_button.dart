@@ -8,14 +8,16 @@ class AppButton extends StatelessWidget {
   final bool isLoading;
   final double height;
   final bool isSecondaryButton;
+  final bool isEnabled;
 
   const AppButton({
     super.key,
     required this.text,
     required this.onPressed,
     this.isLoading = false,
-    this.height = 50,
+    this.height = 65,
     this.isSecondaryButton = false,
+    this.isEnabled = true,
   });
 
   @override
@@ -25,6 +27,7 @@ class AppButton extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final ButtonStyle buttonStyle = ElevatedButton.styleFrom(
       elevation: 0,
+      minimumSize: Size(double.infinity, height), // enforce height
       backgroundColor: isSecondaryButton
           ? (isDark
                 ? Theme.of(context).scaffoldBackgroundColor
@@ -33,16 +36,17 @@ class AppButton extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       side: isSecondaryButton ? BorderSide(color: primaryColor, width: 2) : BorderSide.none,
     );
+
     return SizedBox(
       height: height,
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
+        onPressed: (isEnabled && !isLoading) ? onPressed : null,
         style: buttonStyle,
         child: isLoading
             ? SizedBox(
-                height: 20,
-                width: 20,
+                height: 24,
+                width: 24,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
                   color: isSecondaryButton ? primaryColor : Colors.white,
@@ -53,7 +57,7 @@ class AppButton extends StatelessWidget {
                 style: TextStyle(
                   color: isSecondaryButton ? primaryColor : Colors.white,
                   fontWeight: FontWeight.w600,
-                  fontSize: appSizes.font.small,
+                  fontSize: appSizes.font.medium,
                 ),
               ),
       ),

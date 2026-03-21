@@ -12,6 +12,7 @@ class AppTemplate extends StatefulWidget {
     this.isShowTopBar = false,
     this.hasMenu = false,
     this.hasBack = false,
+    this.showFloatingActionButton = false,
   });
 
   final String title;
@@ -19,6 +20,7 @@ class AppTemplate extends StatefulWidget {
   final bool isShowTopBar;
   final bool hasMenu;
   final bool hasBack;
+  final bool showFloatingActionButton;
 
   @override
   State<AppTemplate> createState() => _AppTemplateState();
@@ -27,6 +29,7 @@ class AppTemplate extends StatefulWidget {
 class _AppTemplateState extends State<AppTemplate> {
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: widget.isShowTopBar == true
           ? AppTopNavBar(
@@ -38,16 +41,17 @@ class _AppTemplateState extends State<AppTemplate> {
             )
           : null,
       body: Padding(padding: AppSizes(context).padding.medium, child: widget.page),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
-          themeProvider.toggleTheme();
-        },
-        backgroundColor: Theme.of(context).primaryColor,
-
-        tooltip: 'Increment',
-        child: Icon(Icons.add, color: AppColors.darkText),
-      ),
+      floatingActionButton: widget.showFloatingActionButton
+          ? FloatingActionButton(
+              onPressed: () {
+                final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+                themeProvider.toggleTheme();
+              },
+              backgroundColor: Theme.of(context).primaryColor,
+              tooltip: 'Increment',
+              child: Icon(isDark ? Icons.light_mode : Icons.dark_mode, color: AppColors.darkText),
+            )
+          : null,
     );
   }
 }

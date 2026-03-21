@@ -26,7 +26,7 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
   });
 
   @override
-  Size get preferredSize => const Size.fromHeight(70);
+  Size get preferredSize => const Size.fromHeight(90);
 
   @override
   Widget build(BuildContext context) {
@@ -51,50 +51,49 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: hasBack
-                        ? Container(
-                            decoration: BoxDecoration(
-                              color: !isDark
-                                  ? AppColors.iconContinanerBackground
-                                  : AppColors.darkIconContinanerBackground,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back_ios_new,
-                                  color: isDark ? AppColors.darkIcon : AppColors.icon,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (_) => const LandingPage()),
-                                  );
-                                },
-                              ),
-                            ),
-                          )
-                        : Container(),
-                  ),
-
                   Expanded(flex: 5, child: Image.asset(logoPath, height: sizes.height * 0.05)),
-                  Expanded(
-                    child: hasMenu
-                        ? IconButton(
-                            icon: Icon(
-                              actionIcon,
-                              color: isDark ? AppColors.darkIcon : AppColors.icon,
-                            ),
-                            onPressed: onActionTap,
-                          )
-                        : Container(),
-                  ),
                 ],
               ),
             ],
           ),
         ),
+        leading: hasBack
+            ? Padding(
+                padding: const EdgeInsets.only(left: 5),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: !isDark
+                        ? AppColors.iconContinanerBackground
+                        : AppColors.darkIconContinanerBackground,
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios_new,
+                      color: isDark ? AppColors.darkIcon : AppColors.icon,
+                    ),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LandingPage()),
+                      );
+                    },
+                  ),
+                ),
+              )
+            : Container(),
+
+        actions: hasMenu
+            ? [
+                Container(
+                  margin: const EdgeInsets.only(right: 20),
+                  child: IconButton(
+                    icon: Icon(actionIcon, color: isDark ? AppColors.darkIcon : AppColors.icon),
+                    onPressed: onActionTap ?? onMenuTap,
+                  ),
+                ),
+              ]
+            : null,
       ),
     );
   }
