@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/views/landing/landing_viewmodel.dart';
+import 'package:king_price_pokemon_application/views/login/login_page.dart';
+import 'package:king_price_pokemon_application/views/registration/registration_page.dart';
 import 'package:king_price_pokemon_application/widgets/app_button.dart';
 import 'package:king_price_pokemon_application/widgets/app_coursel.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
@@ -44,13 +46,26 @@ class _LandingPageState extends State<LandingPage> {
 
                         child: Column(
                           children: [
-                            AppButton(text: 'LOG IN', onPressed: () async {}),
+                            AppButton(
+                              text: 'LOG IN',
+                              onPressed: () async {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const LoginPage()),
+                                );
+                              },
+                            ),
                             const SizedBox(height: 20),
                             AppButton(
                               text: 'REGSITER',
 
                               isSecondaryButton: true,
-                              onPressed: () async {},
+                              onPressed: () async {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(builder: (_) => const RegistrationPage()),
+                                );
+                              },
                             ),
                           ],
                         ),

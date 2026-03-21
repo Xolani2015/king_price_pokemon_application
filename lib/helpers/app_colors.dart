@@ -11,14 +11,16 @@ class AppColors {
   static const primaryButtonBackground = primary;
   static const secondaryPrimaryBackground = Colors.white;
   static const icon = Color(0xFFBD190D);
+  static const iconContinanerBackground = Color.fromARGB(73, 126, 126, 126);
 
   // Dark mode colors
-  static const darkBackground = Color.fromARGB(255, 34, 34, 34);
+  static const darkBackground = Color.fromARGB(255, 25, 25, 25);
   static const darkText = Colors.white;
-  static const darkCardShadow = Color.fromARGB(31, 229, 43, 43);
+  static const darkCardShadow = Color.fromARGB(31, 222, 222, 222);
   static const darkSecondaryPrimaryBackground = Color.fromARGB(255, 34, 34, 34);
   static const darkPrimaryButtonBackground = primary;
   static const darkIcon = Colors.white;
+  static const darkIconContinanerBackground = Color.fromARGB(255, 66, 66, 66);
 }
 
 final ThemeData lightTheme = ThemeData(

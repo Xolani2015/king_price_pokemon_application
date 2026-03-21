@@ -22,53 +22,49 @@ class _LoginPageState extends State<LoginPage> {
       create: (_) => LoginViewModel(),
       child: Consumer<LoginViewModel>(
         builder: (context, vm, child) => AppTemplate(
-          title: 'login',
-          page: Center(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Login', style: Theme.of(context).textTheme.headlineMedium),
-                  const SizedBox(height: 12),
-                  AppTextField(controller: emailController, label: 'Email'),
-                  const SizedBox(height: 12),
-                  AppTextField(
-                    controller: passwordController,
-                    label: 'Password',
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 20),
-                  vm.isLoading
-                      ? const CircularProgressIndicator()
-                      : ElevatedButton(
-                          onPressed: () async {
-                            final user = UserModel(
-                              username: '',
-                              email: emailController.text,
-                              password: passwordController.text,
-                            );
-                            await vm.login(user);
-                            if (vm.status == LoginStatus.success) {
-                              ScaffoldMessenger.of(
-                                context,
-                              ).showSnackBar(SnackBar(content: Text(vm.message!)));
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(builder: (_) => const LoginPage()),
-                              // );
-                            } else if (vm.status == LoginStatus.error) {
-                              ScaffoldMessenger.of(
-                                context,
-                              ).showSnackBar(SnackBar(content: Text(vm.message!)));
-                            }
-                          },
-                          child: vm.isLoading
-                              ? const CircularProgressIndicator()
-                              : const Text('Login'),
-                        ),
-                ],
-              ),
+          title: 'log In',
+          isShowTopBar: true,
+          hasBack: true,
+          page: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Login', style: Theme.of(context).textTheme.headlineMedium),
+                const SizedBox(height: 12),
+                AppTextField(controller: emailController, label: 'Email'),
+                const SizedBox(height: 12),
+                AppTextField(controller: passwordController, label: 'Password', obscureText: true),
+                const SizedBox(height: 20),
+                vm.isLoading
+                    ? const CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: () async {
+                          final user = UserModel(
+                            username: '',
+                            email: emailController.text,
+                            password: passwordController.text,
+                          );
+                          await vm.login(user);
+                          if (vm.status == LoginStatus.success) {
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text(vm.message!)));
+                            // Navigator.pushReplacement(
+                            //   context,
+                            //   MaterialPageRoute(builder: (_) => const LoginPage()),
+                            // );
+                          } else if (vm.status == LoginStatus.error) {
+                            ScaffoldMessenger.of(
+                              context,
+                            ).showSnackBar(SnackBar(content: Text(vm.message!)));
+                          }
+                        },
+                        child: vm.isLoading
+                            ? const CircularProgressIndicator()
+                            : const Text('Login'),
+                      ),
+              ],
             ),
           ),
         ),

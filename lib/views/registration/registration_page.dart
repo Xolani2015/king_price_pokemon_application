@@ -9,8 +9,7 @@ import 'package:king_price_pokemon_application/widgets/app_textfield.dart';
 import 'package:provider/provider.dart';
 
 class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key, required this.title});
-  final String title;
+  const RegistrationPage({super.key});
 
   @override
   State<RegistrationPage> createState() => _RegistrationPageState();
@@ -27,7 +26,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       create: (_) => RegistrationViewModel(),
       child: Consumer<RegistrationViewModel>(
         builder: (context, vm, child) => AppTemplate(
-          title: widget.title,
+          title: 'Register',
           page: Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(16),

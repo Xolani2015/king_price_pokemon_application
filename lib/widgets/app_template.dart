@@ -10,11 +10,16 @@ class AppTemplate extends StatefulWidget {
     required this.title,
     required this.page,
     this.isShowTopBar = false,
+    this.hasMenu = false,
+    this.hasBack = false,
   });
 
   final String title;
   final Widget page;
   final bool isShowTopBar;
+  final bool hasMenu;
+  final bool hasBack;
+
   @override
   State<AppTemplate> createState() => _AppTemplateState();
 }
@@ -25,7 +30,8 @@ class _AppTemplateState extends State<AppTemplate> {
     return Scaffold(
       appBar: widget.isShowTopBar == true
           ? AppTopNavBar(
-              isHomePage: true,
+              hasMenu: widget.hasMenu,
+              hasBack: widget.hasBack,
               logoPath: 'assets/branding/app_logo.webp',
               onMenuTap: () {},
               onActionTap: () {},

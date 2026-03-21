@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
+import 'package:king_price_pokemon_application/views/landing/landing_page.dart';
 
 class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
-  final bool isHomePage;
+  final bool hasMenu;
+  final bool hasBack;
   final String? title;
   final VoidCallback? onMenuTap;
   final VoidCallback? onBackTap;
@@ -13,7 +15,8 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
 
   const AppTopNavBar({
     super.key,
-    required this.isHomePage,
+    this.hasMenu = false,
+    this.hasBack = false,
     this.title,
     this.onMenuTap,
     this.onBackTap,
@@ -40,6 +43,7 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
         titleSpacing: 0,
         toolbarHeight: sizes.height * 0.5,
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        automaticallyImplyLeading: false,
         title: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -47,41 +51,44 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      if (isHomePage)
-                        IconButton(
-                          icon: Icon(
-                            Icons.menu,
-                            color: isDark ? AppColors.darkIcon : AppColors.icon,
-                          ),
-                          onPressed: onMenuTap,
-                        )
-                      else
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back),
-                          onPressed: onBackTap ?? () => Navigator.pop(context),
-                        ),
-                    ],
+                  Expanded(
+                    child: hasBack
+                        ? Container(
+                            decoration: BoxDecoration(
+                              color: !isDark
+                                  ? AppColors.iconContinanerBackground
+                                  : AppColors.darkIconContinanerBackground,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Center(
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: isDark ? AppColors.darkIcon : AppColors.icon,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (_) => const LandingPage()),
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : Container(),
                   ),
-                  Row(
-                    children: [
-                      Image.asset(logoPath, height: sizes.height * 0.05),
-                      if (!isHomePage) ...[
-                        sizes.space.small,
-                        Text(
-                          title ?? '',
-                          style: TextStyle(
-                            fontSize: sizes.font.medium,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ],
-                    ],
-                  ),
-                  IconButton(
-                    icon: Icon(actionIcon, color: isDark ? AppColors.darkIcon : AppColors.icon),
-                    onPressed: onActionTap,
+
+                  Expanded(flex: 5, child: Image.asset(logoPath, height: sizes.height * 0.05)),
+                  Expanded(
+                    child: hasMenu
+                        ? IconButton(
+                            icon: Icon(
+                              actionIcon,
+                              color: isDark ? AppColors.darkIcon : AppColors.icon,
+                            ),
+                            onPressed: onActionTap,
+                          )
+                        : Container(),
                   ),
                 ],
               ),
