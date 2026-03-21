@@ -1,6 +1,7 @@
 // pages/registration_page.dart
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
+import 'package:king_price_pokemon_application/views/login/login_page.dart';
 import 'package:king_price_pokemon_application/views/registration/registration_viewmodel.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_textfield.dart';
@@ -58,10 +59,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               ScaffoldMessenger.of(
                                 context,
                               ).showSnackBar(SnackBar(content: Text(vm.message!)));
-                              // Navigator.pushReplacement(
-                              //   context,
-                              //   MaterialPageRoute(builder: (_) => const LoginPage()),
-                              // );
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(builder: (_) => const LoginPage()),
+                              );
                             } else if (vm.status == RegistrationStatus.error) {
                               ScaffoldMessenger.of(
                                 context,
