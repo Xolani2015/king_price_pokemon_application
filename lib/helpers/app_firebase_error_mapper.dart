@@ -4,40 +4,32 @@ class FirebaseErrorHelper {
   static String getRegistrationMessage(FirebaseAuthException e) {
     switch (e.code) {
       case 'email-already-in-use':
-        return 'This email is already registered. Try logging in instead.';
+        return 'Sorry Email Taken';
       case 'invalid-email':
-        return 'Please enter a valid email address.';
+        return 'Enter Valid Email';
       case 'weak-password':
-        return 'Your password is too weak. Use at least 6 characters.';
-      case 'operation-not-allowed':
-        return 'Email/password accounts are not enabled.';
+        return 'Your password is Weak';
       case 'network-request-failed':
-        return 'Network error. Please check your internet connection.';
-      case 'too-many-requests':
-        return 'Too many attempts. Please try again later.';
+        return 'Network Error';
       default:
-        return e.message ?? 'Registration failed. Please try again.';
+        return e.message ?? 'Registration failed';
     }
   }
 
   static String getLoginMessage(FirebaseAuthException e) {
     switch (e.code) {
       case 'user-not-found':
-        return 'No account found with this email.';
+        return 'User not found';
       case 'wrong-password':
-        return 'Incorrect password. Please try again.';
+        return 'Incorrect password';
       case 'invalid-email':
-        return 'Please enter a valid email address.';
+        return 'Enter Valid Email';
       case 'invalid-credential':
         return 'Invalid email or password.';
-      case 'user-disabled':
-        return 'This account has been disabled. Contact support.';
       case 'network-request-failed':
-        return 'Network error. Please check your internet connection.';
-      case 'too-many-requests':
-        return 'Too many login attempts. Try again later.';
+        return 'Network error';
       default:
-        return e.message ?? 'Login failed. Please try again.';
+        return e.message ?? 'Login failed';
     }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
-import 'package:king_price_pokemon_application/views/landing/landing_page.dart';
+import 'package:king_price_pokemon_application/views/splash/splash_page.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
-          title: 'Flutter Demo',
+          title: 'King Price Pokémon',
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          home: const LandingPage(),
+          home: const SplashPage(),
         );
       },
     );
