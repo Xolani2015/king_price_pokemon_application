@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_enums.dart';
 import 'package:king_price_pokemon_application/helpers/app_firebase_error_mapper.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
 import 'package:king_price_pokemon_application/services/firebase_authentication_service.dart';
-
-enum RegistrationStatus { idle, loading, success, error }
 
 class RegistrationViewModel extends ChangeNotifier {
   final AuthService _authService = AuthService();
