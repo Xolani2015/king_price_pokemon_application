@@ -30,7 +30,7 @@ class AppDialog extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       child: SizedBox(
-        height: AppSizes(context).height * 0.3,
+        height: AppSizes(context).height * 0.25,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,12 +38,23 @@ class AppDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    height: AppSizes(context).space.large * 3,
-                    color: Theme.of(context).primaryColor,
+                    height: AppSizes(context).space.large * 2.5,
+                    decoration: BoxDecoration(
+                      color: AppColors.primary,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                      ),
+                    ),
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(sideIcon, size: 40, color: AppColors.secondaryIcon),
+                        Icon(
+                          sideIcon,
+                          size: AppSizes(context).space.large,
+                          color: AppColors.secondaryIcon,
+                        ),
                         const SizedBox(width: 16),
                         Text(
                           header,
@@ -61,26 +72,25 @@ class AppDialog extends StatelessWidget {
             ),
             Expanded(
               child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    paragraph,
-                    style: Theme.of(context).textTheme.bodyLarge,
-                    textAlign: TextAlign.center,
-                  ),
+                child: Text(
+                  paragraph,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
             Expanded(
               child: Center(
                 child: Padding(
-                  padding: (AppSizes(context).padding.medium),
+                  padding: EdgeInsetsGeometry.symmetric(horizontal: AppSizes(context).width * 0.1),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
                         flex: 7,
                         child: AppButton(
+                          height: AppSizes(context).height * 0.04,
+
                           text: 'Yes',
                           onPressed: () {
                             Navigator.push(
@@ -95,6 +105,7 @@ class AppDialog extends StatelessWidget {
                         flex: 7,
                         child: AppButton(
                           text: 'No',
+                          height: AppSizes(context).height * 0.04,
                           isSecondaryButton: true,
                           onPressed: () => Navigator.pop(context),
                         ),

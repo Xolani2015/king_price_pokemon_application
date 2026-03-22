@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:king_price_pokemon_application/helpers/app_colors.dart';
+import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/models/pokemon_model.dart';
 import 'package:king_price_pokemon_application/provider/provider_store.dart';
 import 'package:provider/provider.dart';
 
 class AppPartialSwipCard extends StatefulWidget {
-  final PokemonModel poke;
+  final PokemonModel pokemon;
 
-  const AppPartialSwipCard({super.key, required this.poke});
+  const AppPartialSwipCard({super.key, required this.pokemon});
 
   @override
   State<AppPartialSwipCard> createState() => _AppPartialSwipCardState();
@@ -19,7 +21,7 @@ class _AppPartialSwipCardState extends State<AppPartialSwipCard> {
   void _toggleOpen() {
     setState(() {
       _isOpen = !_isOpen;
-      _offset = _isOpen ? -80.0 : 0.0; // ~25% of typical card width
+      _offset = _isOpen ? -80.0 : 0.0;
     });
   }
 
@@ -29,21 +31,20 @@ class _AppPartialSwipCardState extends State<AppPartialSwipCard> {
 
     return Stack(
       children: [
-        // Background with Remove button
         Positioned.fill(
           child: Align(
             alignment: Alignment.centerRight,
             child: Padding(
-              padding: const EdgeInsets.only(right: 16),
+              padding: EdgeInsets.only(right: AppSizes(context).width * 0.01),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.redAccent,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),
                 onPressed: () {
-                  store.removeFavourite(widget.poke);
+                  store.removeFavourite(widget.pokemon);
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('${widget.poke.name} removed from favourites')),
+                    SnackBar(content: Text('${widget.pokemon.name} removed from favourites')),
                   );
                   _toggleOpen();
                 },
@@ -52,7 +53,6 @@ class _AppPartialSwipCardState extends State<AppPartialSwipCard> {
             ),
           ),
         ),
-        // Foreground card
         GestureDetector(
           onHorizontalDragUpdate: (details) {
             if (details.primaryDelta != null) {
@@ -77,14 +77,22 @@ class _AppPartialSwipCardState extends State<AppPartialSwipCard> {
             duration: const Duration(milliseconds: 200),
             transform: Matrix4.translationValues(_offset, 0, 0),
             child: Card(
-              color: Colors.white,
+              color: Theme.of(context).scaffoldBackgroundColor,
               elevation: 5,
+              shadowColor: AppColors.searchTextAndBorder,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: ListTile(
-                leading: widget.poke.image.isNotEmpty
-                    ? Image.network(widget.poke.image, height: 40, fit: BoxFit.contain)
+                leading: widget.pokemon.image.isNotEmpty
+                    ? Image.network(
+                        widget.pokemon.image,
+                        height: AppSizes(context).height * 0.08,
+                        fit: BoxFit.contain,
+                      )
                     : const Icon(Icons.catching_pokemon),
-                title: Text(widget.poke.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+                title: Text(
+                  widget.pokemon.name,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ),

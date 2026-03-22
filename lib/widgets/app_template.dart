@@ -80,7 +80,7 @@ class _AppTemplateState extends State<AppTemplate> {
     } else if (page == AppPage.pokemonDetail) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
     } else if (page == AppPage.pokemonFavorites) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonDetailPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
     }
   }
 }
