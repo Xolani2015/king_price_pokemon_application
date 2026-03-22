@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
+import 'package:king_price_pokemon_application/helpers/app_enums.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
-import 'package:king_price_pokemon_application/widgets/app_top_nav_bar.dart';
+import 'package:king_price_pokemon_application/views/pokemonList/pokemon_list_page.dart';
+import 'package:king_price_pokemon_application/widgets/app_bar.dart';
+import 'package:king_price_pokemon_application/widgets/app_dialog.dart';
 import 'package:provider/provider.dart';
 
 class AppTemplate extends StatefulWidget {
@@ -9,6 +12,7 @@ class AppTemplate extends StatefulWidget {
     super.key,
     required this.title,
     required this.page,
+    required this.currentPage,
     this.isShowTopBar = false,
     this.hasMenu = false,
     this.hasBack = false,
@@ -17,6 +21,7 @@ class AppTemplate extends StatefulWidget {
 
   final String title;
   final Widget page;
+  final AppPage currentPage;
   final bool isShowTopBar;
   final bool hasMenu;
   final bool hasBack;
@@ -35,8 +40,9 @@ class _AppTemplateState extends State<AppTemplate> {
           ? AppTopNavBar(
               hasMenu: widget.hasMenu,
               hasBack: widget.hasBack,
-              logoPath: 'assets/branding/app_logo.webp',
-              onMenuTap: () {},
+              logoPath: 'assets/branding/applogo.png',
+              onMenuTap: null,
+              onBackTap: () => _navigateToPage(widget.currentPage),
               onActionTap: () {},
             )
           : null,
@@ -53,5 +59,26 @@ class _AppTemplateState extends State<AppTemplate> {
             )
           : null,
     );
+  }
+
+  void _navigateToPage(AppPage page) {
+    if (page == AppPage.pokemonList) {
+      showDialog(
+        context: context,
+        builder: (context) => AppDialog(
+          header: "Navigation",
+          paragraph: "Are you want to logout ? ",
+          sideIcon: Icons.warning,
+        ),
+      );
+    } else if (page == AppPage.login) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
+    } else if (page == AppPage.registration) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
+    } else if (page == AppPage.pokemonDetail) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
+    } else if (page == AppPage.pokemonFavorites) {
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
+    }
   }
 }
