@@ -13,9 +13,11 @@ class AppColors {
   static const errorText = Colors.red;
   static const errorBorder = Colors.red;
   static const secondaryPrimaryBackground = Colors.white;
-  static const icon = Color(0xFFBD190D);
+  static const primaryIcon = Color(0xFFBD190D);
+  static const secondaryIcon = Color.fromARGB(255, 255, 255, 255);
   static const iconContinanerBackground = Color.fromARGB(73, 126, 126, 126);
   static const primaryText = Color.fromARGB(255, 107, 107, 107);
+  static const secondaryText = Color.fromARGB(255, 255, 255, 255);
   static const errorToast = Color.fromARGB(255, 215, 186, 0);
   static const successToast = Colors.green;
 
@@ -25,7 +27,8 @@ class AppColors {
   static const darkCardShadow = Color.fromARGB(31, 222, 222, 222);
   static const darkSecondaryPrimaryBackground = Color.fromARGB(255, 34, 34, 34);
   static const darkPrimaryButtonBackground = primary;
-  static const darkIcon = Colors.white;
+  static const darkPrimaryIcon = Colors.white;
+  static const darkSecondaryIcon = primary;
   static const darkIconContinanerBackground = Color.fromARGB(255, 66, 66, 66);
   static const darkPrimaryText = Color.fromARGB(255, 184, 184, 184);
 }
