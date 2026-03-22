@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
+import 'package:king_price_pokemon_application/helpers/app_enums.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
+import 'package:king_price_pokemon_application/views/pokemonList/pokemon_list_page.dart';
 import 'package:king_price_pokemon_application/views/login/login_viewmodel.dart';
+import 'package:king_price_pokemon_application/views/registration/registration_page.dart';
 import 'package:king_price_pokemon_application/widgets/app_button.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_textfield.dart';
+import 'package:king_price_pokemon_application/widgets/app_toast.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -27,8 +31,9 @@ class _LoginPageState extends State<LoginPage> {
       child: Consumer<LoginViewModel>(
         builder: (context, vm, child) => AppTemplate(
           title: 'log In',
+          currentPage: AppPage.login,
           isShowTopBar: true,
-          hasBack: true,
+          // hasBack: true,
           showFloatingActionButton: true,
           page: SingleChildScrollView(
             padding: const EdgeInsets.all(16),
@@ -58,7 +63,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: AppSizes(context).space.small),
                 AppTextField(controller: passwordController, label: 'Password', obscureText: true),
                 SizedBox(height: AppSizes(context).space.large),
-
                 AppButton(
                   text: 'LOG IN',
                   isLoading: vm.isLoading,
@@ -75,13 +79,22 @@ class _LoginPageState extends State<LoginPage> {
                       ).showSnackBar(SnackBar(content: Text(vm.message!)));
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (_) => const LoginPage()),
+                        MaterialPageRoute(builder: (_) => const PokemonListPage()),
                       );
                     } else if (vm.status == LoginStatus.error) {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(SnackBar(content: Text(vm.message!)));
+                      showErrorToast(context, vm.message ?? 'Registration Failed');
                     }
+                  },
+                ),
+                SizedBox(height: AppSizes(context).space.small),
+                AppButton(
+                  text: 'REGSITER',
+                  isSecondaryButton: true,
+                  onPressed: () async {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const RegistrationPage()),
+                    );
                   },
                 ),
               ],

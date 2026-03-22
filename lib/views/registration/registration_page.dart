@@ -1,6 +1,7 @@
 // pages/registration_page.dart
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
+import 'package:king_price_pokemon_application/helpers/app_enums.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/models/user_model.dart';
 import 'package:king_price_pokemon_application/views/login/login_page.dart';
@@ -32,6 +33,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
       child: Consumer<RegistrationViewModel>(
         builder: (context, vm, child) => AppTemplate(
           title: 'Register',
+          currentPage: AppPage.registration,
           showFloatingActionButton: true,
           isShowTopBar: true,
           hasBack: true,
