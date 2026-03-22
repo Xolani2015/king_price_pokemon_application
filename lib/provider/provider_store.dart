@@ -6,19 +6,19 @@ class PokemonStore extends ChangeNotifier {
 
   List<PokemonModel> get favourites => List.unmodifiable(_favourites);
 
-  void addFavourite(PokemonModel poke) {
-    if (!_favourites.contains(poke)) {
-      _favourites.add(poke);
+  void addFavourite(PokemonModel pokemon) {
+    if (!_favourites.contains(pokemon)) {
+      _favourites.add(pokemon);
       notifyListeners();
     }
   }
 
-  void removeFavourite(PokemonModel poke) {
-    _favourites.remove(poke);
+  void removeFavourite(PokemonModel pokemon) {
+    _favourites.remove(pokemon);
     notifyListeners();
   }
 
-  bool isFavourite(PokemonModel poke) {
-    return _favourites.contains(poke);
+  bool isFavourite(PokemonModel pokemon) {
+    return _favourites.contains(pokemon);
   }
 }

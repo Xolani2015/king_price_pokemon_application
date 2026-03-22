@@ -13,14 +13,14 @@ class PokemonService {
       final results = List<Map<String, dynamic>>.from(data['results']);
 
       final detailedResults = await Future.wait(
-        results.map((poke) async {
-          final detailRes = await http.get(Uri.parse(poke['url']));
+        results.map((pokemon) async {
+          final detailRes = await http.get(Uri.parse(pokemon['url']));
           if (detailRes.statusCode == 200) {
             final detailData = json.decode(detailRes.body);
             return PokemonModel.fromJson(detailData);
           }
           return PokemonModel(
-            name: poke['name'],
+            name: pokemon['name'],
             image: '',
             hp: 0,
             attack: 0,

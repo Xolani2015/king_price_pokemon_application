@@ -50,13 +50,15 @@ class PokemonListViewmodel extends ChangeNotifier {
 
   List<PokemonModel> get filteredPokemon {
     if (searchQuery.isEmpty) return pokemonList;
-    return pokemonList.where((poke) => poke.name.toLowerCase().contains(searchQuery)).toList();
+    return pokemonList
+        .where((pokemon) => pokemon.name.toLowerCase().contains(searchQuery))
+        .toList();
   }
 
   PokemonModel? selectedPokemon;
 
-  void selectPokemon(PokemonModel poke) {
-    selectedPokemon = poke;
+  void selectPokemon(PokemonModel pokemon) {
+    selectedPokemon = pokemon;
     notifyListeners();
   }
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_enums.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
+import 'package:king_price_pokemon_application/views/login/login_page.dart';
+import 'package:king_price_pokemon_application/views/pokemonDetails/pokemon_details_page.dart';
 import 'package:king_price_pokemon_application/views/pokemonList/pokemon_list_page.dart';
 import 'package:king_price_pokemon_application/widgets/app_bar.dart';
 import 'package:king_price_pokemon_application/widgets/app_dialog.dart';
@@ -74,11 +76,11 @@ class _AppTemplateState extends State<AppTemplate> {
     } else if (page == AppPage.login) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
     } else if (page == AppPage.registration) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const LoginPage()));
     } else if (page == AppPage.pokemonDetail) {
       Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
     } else if (page == AppPage.pokemonFavorites) {
-      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonListPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const PokemonDetailPage()));
     }
   }
 }

@@ -4,11 +4,11 @@ import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/models/pokemon_model.dart';
 
 class AppCard extends StatelessWidget {
-  final PokemonModel poke;
+  final PokemonModel pokemon;
   final bool isFav;
   final VoidCallback? onTap;
 
-  const AppCard({super.key, required this.poke, required this.isFav, this.onTap});
+  const AppCard({super.key, required this.pokemon, required this.isFav, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +32,11 @@ class AppCard extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (poke.image.isNotEmpty)
-                    Image.network(poke.image, height: sizes.height * 0.08, fit: BoxFit.contain),
+                  if (pokemon.image.isNotEmpty)
+                    Image.network(pokemon.image, height: sizes.height * 0.08, fit: BoxFit.contain),
                   const SizedBox(height: 2),
                   Text(
-                    poke.name,
+                    pokemon.name,
                     style: TextStyle(
                       fontSize: sizes.font.small,
                       color: isDark ? AppColors.darkTertiaryText : AppColors.tertiaryText,

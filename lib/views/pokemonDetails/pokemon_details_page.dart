@@ -21,32 +21,32 @@ class PokemonDetailPage extends StatelessWidget {
 
     return Consumer<PokemonDetailsViewmodel>(
       builder: (context, vm, child) {
-        final PokemonModel? poke = vm.pokemonDetails;
+        final PokemonModel? pokemon = vm.pokemonDetails;
 
         return AppTemplate(
-          title: poke?.name ?? 'Pokémon Details',
+          title: pokemon?.name ?? 'Pokémon Details',
           currentPage: AppPage.pokemonDetail,
           isShowTopBar: true,
           hasBack: true,
           showFloatingActionButton: true,
-          page: poke == null
+          page: pokemon == null
               ? const Center(child: Text('No Pokémon selected'))
               : Consumer<PokemonStore>(
                   builder: (context, store, child) {
-                    final isFav = store.isFavourite(poke);
+                    final isFav = store.isFavourite(pokemon);
                     return SingleChildScrollView(
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
-                          if (poke.image.isNotEmpty)
+                          if (pokemon.image.isNotEmpty)
                             Image.network(
-                              poke.image,
+                              pokemon.image,
                               height: sizes.height * 0.25,
                               fit: BoxFit.contain,
                             ),
                           const SizedBox(height: 16),
                           Text(
-                            poke.name,
+                            pokemon.name,
                             style: TextStyle(
                               fontSize: sizes.font.large,
                               color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
@@ -56,7 +56,7 @@ class PokemonDetailPage extends StatelessWidget {
                           const SizedBox(height: 8),
                           if (isFav)
                             Text(
-                              'Already in favourites',
+                              'In favourites',
                               style: TextStyle(
                                 fontSize: sizes.font.medium,
                                 color: Colors.green,
@@ -73,8 +73,8 @@ class PokemonDetailPage extends StatelessWidget {
                                   color: isFav ? Colors.green : Colors.grey,
                                 ),
                                 onPressed: () {
-                                  store.addFavourite(poke);
-                                  showSuccessToast(context, '${poke.name} added to favourites');
+                                  store.addFavourite(pokemon);
+                                  showSuccessToast(context, 'Added to favourites');
                                 },
                               ),
                               IconButton(
@@ -84,23 +84,19 @@ class PokemonDetailPage extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   if (isFav) {
-                                    store.removeFavourite(poke);
-                                    showSuccessToast(
-                                      context,
-                                      '${poke.name} removed from favourites',
-                                    );
+                                    store.removeFavourite(pokemon);
                                   } else {
-                                    showErrorToast(context, '${poke.name} is not in favourites');
+                                    showErrorToast(context, '${pokemon.name} is not in favourites');
                                   }
                                 },
                               ),
                             ],
                           ),
                           const SizedBox(height: 16),
-                          _StatRow(label: "HP", value: poke.hp),
-                          _StatRow(label: "Attack", value: poke.attack),
-                          _StatRow(label: "Defense", value: poke.defense),
-                          _StatRow(label: "Speed", value: poke.speed),
+                          _StatRow(label: "HP", value: pokemon.hp),
+                          _StatRow(label: "Attack", value: pokemon.attack),
+                          _StatRow(label: "Defense", value: pokemon.defense),
+                          _StatRow(label: "Speed", value: pokemon.speed),
                           const SizedBox(height: 16),
                           AppButton(
                             text: 'See Favourites',

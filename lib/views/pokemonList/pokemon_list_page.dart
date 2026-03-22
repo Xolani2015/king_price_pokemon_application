@@ -46,13 +46,13 @@ class PokemonListPage extends StatelessWidget {
                     itemCount: vm.filteredPokemon.length + (vm.isLoading ? 1 : 0),
                     itemBuilder: (context, index) {
                       if (index < vm.filteredPokemon.length) {
-                        final PokemonModel poke = vm.filteredPokemon[index];
-                        final isFav = store.isFavourite(poke);
+                        final PokemonModel pokemon = vm.filteredPokemon[index];
+                        final isFav = store.isFavourite(pokemon);
 
                         return InkWell(
                           onTap: () {
                             final detailsVm = PokemonDetailsViewmodel();
-                            detailsVm.loadPokemonDetails(poke);
+                            detailsVm.loadPokemonDetails(pokemon);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -66,11 +66,11 @@ class PokemonListPage extends StatelessWidget {
                           child: Stack(
                             children: [
                               AppCard(
-                                poke: poke,
+                                pokemon: pokemon,
                                 isFav: isFav,
                                 onTap: () {
                                   final detailsVm = PokemonDetailsViewmodel();
-                                  detailsVm.loadPokemonDetails(poke);
+                                  detailsVm.loadPokemonDetails(pokemon);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
