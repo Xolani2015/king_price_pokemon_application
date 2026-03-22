@@ -1,16 +1,23 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
+import 'package:king_price_pokemon_application/provider/provider_store.dart';
 import 'package:king_price_pokemon_application/views/splash/splash_page.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    //  options: DefaultFirebaseOptions.currentPlatform
-  );
+  await Firebase.initializeApp();
 
-  runApp(ChangeNotifierProvider(create: (_) => ThemeProvider(), child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => PokemonStore()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

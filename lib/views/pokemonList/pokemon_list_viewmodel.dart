@@ -5,7 +5,7 @@ import 'package:king_price_pokemon_application/services/pokemon_api_service.dart
 class PokemonListViewmodel extends ChangeNotifier {
   final PokemonService _pokemonService = PokemonService();
 
-  List<Pokemon> pokemonList = [];
+  List<PokemonModel> pokemonList = [];
   bool isLoading = false;
   int offset = 0;
   final int limit = 20;
@@ -48,14 +48,14 @@ class PokemonListViewmodel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Pokemon> get filteredPokemon {
+  List<PokemonModel> get filteredPokemon {
     if (searchQuery.isEmpty) return pokemonList;
     return pokemonList.where((poke) => poke.name.toLowerCase().contains(searchQuery)).toList();
   }
 
-  Pokemon? selectedPokemon;
+  PokemonModel? selectedPokemon;
 
-  void selectPokemon(Pokemon poke) {
+  void selectPokemon(PokemonModel poke) {
     selectedPokemon = poke;
     notifyListeners();
   }

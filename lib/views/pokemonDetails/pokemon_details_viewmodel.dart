@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/models/pokemon_model.dart';
 
 class PokemonDetailsViewmodel extends ChangeNotifier {
-  Pokemon? pokemonDetails;
+  PokemonModel? pokemonDetails;
 
-  void loadPokemonDetails(Pokemon poke) {
+  void loadPokemonDetails(PokemonModel poke) {
     pokemonDetails = poke;
     notifyListeners();
   }

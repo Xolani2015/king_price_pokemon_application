@@ -63,6 +63,7 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
                           child: IconButton(
                             icon: Icon(
                               Icons.arrow_back_ios_new,
+                              size: AppSizes(context).height * 0.02,
                               color: isDark ? AppColors.darkPrimaryIcon : AppColors.primaryIcon,
                             ),
                             onPressed: () => onBackTap?.call(),

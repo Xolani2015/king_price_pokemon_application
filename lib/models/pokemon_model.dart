@@ -1,4 +1,4 @@
-class Pokemon {
+class PokemonModel {
   final String name;
   final String image;
   final int hp;
@@ -6,7 +6,7 @@ class Pokemon {
   final int defense;
   final int speed;
 
-  Pokemon({
+  PokemonModel({
     required this.name,
     required this.image,
     required this.hp,
@@ -15,9 +15,8 @@ class Pokemon {
     required this.speed,
   });
 
-  factory Pokemon.fromJson(Map<String, dynamic> json) {
+  factory PokemonModel.fromJson(Map<String, dynamic> json) {
     final stats = json['stats'] as List? ?? [];
-
     int getStat(String name) {
       try {
         return stats.firstWhere((s) => s['stat']['name'] == name)['base_stat'] ?? 0;
@@ -26,7 +25,7 @@ class Pokemon {
       }
     }
 
-    return Pokemon(
+    return PokemonModel(
       name: json['name'] ?? '',
       image: json['sprites']?['front_default'] ?? '',
       hp: getStat('hp'),
@@ -36,14 +35,20 @@ class Pokemon {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'image': image,
-      'hp': hp,
-      'attack': attack,
-      'defense': defense,
-      'speed': speed,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'name': name,
+    'image': image,
+    'hp': hp,
+    'attack': attack,
+    'defense': defense,
+    'speed': speed,
+  };
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is PokemonModel && runtimeType == other.runtimeType && name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
 }
