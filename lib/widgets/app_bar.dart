@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
-import 'package:king_price_pokemon_application/views/login/login_page.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
   final bool hasMenu;
@@ -63,7 +63,7 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
                           child: IconButton(
                             icon: Icon(
                               Icons.arrow_back_ios_new,
-                              size: AppSizes(context).height * 0.02,
+                              size: kIsWeb ? sizes.height * 0.05 : sizes.height * 0.03,
                               color: isDark ? AppColors.darkPrimaryIcon : AppColors.primaryIcon,
                             ),
                             onPressed: () => onBackTap?.call(),
@@ -72,21 +72,14 @@ class AppTopNavBar extends StatelessWidget implements PreferredSizeWidget {
                       )
                     : Container(),
               ),
-              Expanded(flex: 5, child: Image.asset(logoPath, height: sizes.height * 0.05)),
               Expanded(
-                child: hasMenu
-                    ? Container(
-                        margin: const EdgeInsets.only(right: 20),
-                        child: IconButton(
-                          icon: Icon(
-                            actionIcon,
-                            color: isDark ? AppColors.darkPrimaryIcon : AppColors.primaryIcon,
-                          ),
-                          onPressed: onActionTap ?? onMenuTap,
-                        ),
-                      )
-                    : Container(),
+                flex: 5,
+                child: Image.asset(
+                  logoPath,
+                  height: kIsWeb ? sizes.height * 0.08 : sizes.height * 0.05,
+                ),
               ),
+              Expanded(child: Container()),
             ],
           ),
         ),

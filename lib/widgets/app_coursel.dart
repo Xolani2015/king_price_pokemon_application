@@ -88,7 +88,7 @@ class _AppCourselState extends State<AppCoursel> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: AppSizes(context).space.medium),
+                SizedBox(height: AppSizes(context).height * 0.02),
                 Text(
                   item['paragraph'] ?? '',
                   textAlign: TextAlign.center,
@@ -102,7 +102,7 @@ class _AppCourselState extends State<AppCoursel> {
                     padding: const EdgeInsets.only(top: 16),
                     child: Image.asset(
                       item['image']!,
-                      height: AppSizes(context).space.xxlarge,
+                      height: AppSizes(context).height * 0.3,
                       fit: BoxFit.cover,
                     ),
                   ),

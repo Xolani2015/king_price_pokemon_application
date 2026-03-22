@@ -10,6 +10,7 @@ import 'package:king_price_pokemon_application/widgets/app_card.dart';
 import 'package:king_price_pokemon_application/widgets/app_search_bar.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb, defaultTargetPlatform, TargetPlatform;
 
 class PokemonListPage extends StatelessWidget {
   const PokemonListPage({super.key});
@@ -37,8 +38,14 @@ class PokemonListPage extends StatelessWidget {
                   child: GridView.builder(
                     controller: vm.scrollController,
                     padding: const EdgeInsets.all(5),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount:
+                          (kIsWeb ||
+                              defaultTargetPlatform == TargetPlatform.macOS ||
+                              defaultTargetPlatform == TargetPlatform.windows ||
+                              defaultTargetPlatform == TargetPlatform.linux)
+                          ? 8
+                          : 3,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
                       childAspectRatio: 0.9,
@@ -48,7 +55,6 @@ class PokemonListPage extends StatelessWidget {
                       if (index < vm.filteredPokemon.length) {
                         final PokemonModel pokemon = vm.filteredPokemon[index];
                         final isFav = store.isFavourite(pokemon);
-
                         return InkWell(
                           onTap: () {
                             final detailsVm = PokemonDetailsViewmodel();

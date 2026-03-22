@@ -10,6 +10,7 @@ import 'package:king_price_pokemon_application/widgets/app_button.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_toast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PokemonDetailPage extends StatelessWidget {
   const PokemonDetailPage({super.key});
@@ -38,6 +39,21 @@ class PokemonDetailPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
+                          Text(
+                            'Pokemon Details',
+                            style: TextStyle(
+                              fontSize: kIsWeb
+                                  ? AppSizes(context).font.large * 1.3
+                                  : AppSizes(context).font.large,
+                              color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: kIsWeb
+                                ? AppSizes(context).space.small * 0.1
+                                : AppSizes(context).space.small * 0.5,
+                          ),
                           if (pokemon.image.isNotEmpty)
                             Image.network(
                               pokemon.image,
@@ -49,7 +65,7 @@ class PokemonDetailPage extends StatelessWidget {
                             pokemon.name,
                             style: TextStyle(
                               fontSize: sizes.font.large,
-                              color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
+                              color: isDark ? AppColors.darkPrimaryText : AppColors.primary,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -93,19 +109,33 @@ class PokemonDetailPage extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 16),
-                          _StatRow(label: "HP", value: pokemon.hp),
-                          _StatRow(label: "Attack", value: pokemon.attack),
-                          _StatRow(label: "Defense", value: pokemon.defense),
-                          _StatRow(label: "Speed", value: pokemon.speed),
-                          const SizedBox(height: 16),
-                          AppButton(
-                            text: 'See Favourites',
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (_) => const PokemonFavouritesPage()),
-                              );
-                            },
+
+                          Padding(
+                            padding: kIsWeb
+                                ? EdgeInsetsGeometry.symmetric(
+                                    horizontal: AppSizes(context).padding.medium * 6,
+                                  )
+                                : EdgeInsetsGeometry.all(0),
+                            child: Column(
+                              children: [
+                                _StatRow(label: "HP", value: pokemon.hp),
+                                _StatRow(label: "Attack", value: pokemon.attack),
+                                _StatRow(label: "Defense", value: pokemon.defense),
+                                _StatRow(label: "Speed", value: pokemon.speed),
+                                const SizedBox(height: 16),
+                                AppButton(
+                                  text: 'See Favourites',
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => const PokemonFavouritesPage(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

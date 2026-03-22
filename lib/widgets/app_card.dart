@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/models/pokemon_model.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AppCard extends StatelessWidget {
   final PokemonModel pokemon;
@@ -21,29 +22,36 @@ class AppCard extends StatelessWidget {
         children: [
           Card(
             color: Theme.of(context).scaffoldBackgroundColor,
-            elevation: 5,
-            shadowColor: AppColors.searchTextAndBorder,
+            elevation: kIsWeb ? AppSizes(context).height * 0.005 : AppSizes(context).height * 0.002,
+            shadowColor: isDark ? AppColors.darkSearchTextAndBorder : AppColors.searchTextAndBorder,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
               side: isFav ? const BorderSide(color: Colors.green, width: 2) : BorderSide.none,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (pokemon.image.isNotEmpty)
-                    Image.network(pokemon.image, height: sizes.height * 0.08, fit: BoxFit.contain),
-                  const SizedBox(height: 2),
-                  Text(
-                    pokemon.name,
-                    style: TextStyle(
-                      fontSize: sizes.font.small,
-                      color: isDark ? AppColors.darkTertiaryText : AppColors.tertiaryText,
-                      fontWeight: FontWeight.normal,
+            child: SizedBox(
+              width: double.infinity,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    if (pokemon.image.isNotEmpty)
+                      Image.network(
+                        pokemon.image,
+                        height: kIsWeb ? sizes.height * 0.1 : sizes.height * 0.08,
+                        fit: BoxFit.contain,
+                      ),
+                    const SizedBox(height: 2),
+                    Text(
+                      pokemon.name,
+                      style: TextStyle(
+                        fontSize: kIsWeb ? sizes.font.large * 0.5 : sizes.font.large * 0.35,
+                        color: isDark ? AppColors.darkTertiaryText : AppColors.tertiaryText,
+                        fontWeight: FontWeight.normal,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
