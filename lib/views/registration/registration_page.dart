@@ -1,4 +1,3 @@
-// pages/registration_page.dart
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_enums.dart';

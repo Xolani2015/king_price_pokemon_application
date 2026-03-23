@@ -11,7 +11,6 @@ import 'package:king_price_pokemon_application/widgets/app_data_bars.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_toast.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PokemonDetailPage extends StatelessWidget {
   const PokemonDetailPage({super.key});
@@ -24,6 +23,7 @@ class PokemonDetailPage extends StatelessWidget {
     return Consumer<PokemonDetailsViewmodel>(
       builder: (context, vm, child) {
         final PokemonModel? pokemon = vm.pokemonDetails;
+
         return AppTemplate(
           title: pokemon?.name ?? 'Pokémon Details',
           currentPage: AppPage.pokemonDetail,
@@ -36,12 +36,12 @@ class PokemonDetailPage extends StatelessWidget {
                   builder: (context, store, child) {
                     final isFav = store.isFavourite(pokemon);
 
+                    final isWide = MediaQuery.of(context).size.width > 800;
+
                     return SingleChildScrollView(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: kIsWeb
-                              ? AppSizes(context).padding.large * 2
-                              : AppSizes(context).padding.medium,
+                          horizontal: AppSizes(context).padding.medium,
                           vertical: AppSizes(context).padding.medium,
                         ),
                         child: Column(
@@ -49,122 +49,31 @@ class PokemonDetailPage extends StatelessWidget {
                             Text(
                               'Pokemon Details',
                               style: TextStyle(
-                                fontSize: kIsWeb
-                                    ? AppSizes(context).font.large * 1.2
-                                    : AppSizes(context).font.large,
+                                fontSize: AppSizes(context).font.large,
                                 color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             SizedBox(height: sizes.height * 0.03),
-
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
+                            isWide
+                                ? Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      if (pokemon.image.isNotEmpty)
-                                        Container(
-                                          padding: const EdgeInsets.all(16),
-                                          decoration: BoxDecoration(
-                                            color: isDark
-                                                ? Colors.grey.shade900
-                                                : Colors.grey.shade100,
-                                            borderRadius: BorderRadius.circular(16),
-                                          ),
-                                          child: Image.network(
-                                            pokemon.image,
-                                            height: kIsWeb
-                                                ? sizes.height * 0.2
-                                                : sizes.height * 0.25,
-                                            fit: BoxFit.contain,
-                                          ),
-                                        ),
-                                      SizedBox(height: sizes.height * 0.02),
-                                      Text(
-                                        pokemon.name,
-                                        style: TextStyle(
-                                          fontSize: sizes.font.large * 1.2,
-                                          color: isDark
-                                              ? AppColors.darkPrimaryText
-                                              : AppColors.primary,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: _leftPanel(context, pokemon, isFav, store, isDark),
                                       ),
-                                      SizedBox(height: sizes.height * 0.02),
-
-                                      if (isFav)
-                                        Text(
-                                          'In favourites',
-                                          style: TextStyle(
-                                            fontSize: sizes.font.medium,
-                                            color: Colors.green,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.thumb_up,
-                                              color: isFav ? Colors.green : Colors.grey,
-                                            ),
-                                            onPressed: () {
-                                              store.addFavourite(pokemon);
-                                              showSuccessToast(context, 'Added to favourites');
-                                            },
-                                          ),
-                                          IconButton(
-                                            icon: Icon(
-                                              Icons.thumb_down,
-                                              color: isFav ? Colors.red : Colors.grey,
-                                            ),
-                                            onPressed: () {
-                                              if (isFav) {
-                                                store.removeFavourite(pokemon);
-                                              } else {
-                                                showErrorToast(
-                                                  context,
-                                                  '${pokemon.name} is not in favourites',
-                                                );
-                                              }
-                                            },
-                                          ),
-                                        ],
-                                      ),
+                                      SizedBox(width: sizes.width * 0.05),
+                                      Expanded(flex: 3, child: _rightPanel(context, pokemon)),
+                                    ],
+                                  )
+                                : Column(
+                                    children: [
+                                      _leftPanel(context, pokemon, isFav, store, isDark),
+                                      SizedBox(height: sizes.height * 0.03),
+                                      _rightPanel(context, pokemon),
                                     ],
                                   ),
-                                ),
-                                SizedBox(width: sizes.width * 0.05),
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                    children: [
-                                      AppDataBar(label: "HP", value: pokemon.hp),
-                                      AppDataBar(label: "Attack", value: pokemon.attack),
-                                      AppDataBar(label: "Defense", value: pokemon.defense),
-                                      AppDataBar(label: "Speed", value: pokemon.speed),
-                                      const SizedBox(height: 20),
-                                      AppButton(
-                                        text: 'See Favourites',
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (_) => const PokemonFavouritesPage(),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
                           ],
                         ),
                       ),
@@ -173,6 +82,89 @@ class PokemonDetailPage extends StatelessWidget {
                 ),
         );
       },
+    );
+  }
+
+  Widget _leftPanel(
+    BuildContext context,
+    PokemonModel pokemon,
+    bool isFav,
+    PokemonStore store,
+    bool isDark,
+  ) {
+    final sizes = AppSizes(context);
+
+    return Column(
+      children: [
+        if (pokemon.image.isNotEmpty)
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Image.network(pokemon.image, height: sizes.height * 0.25, fit: BoxFit.contain),
+          ),
+        SizedBox(height: sizes.height * 0.02),
+        Text(
+          pokemon.name,
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: sizes.font.large * 1.2, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: sizes.height * 0.02),
+        if (isFav)
+          Text(
+            'In favourites',
+            style: TextStyle(
+              fontSize: sizes.font.medium,
+              color: Colors.green,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: Icon(Icons.thumb_up, color: isFav ? Colors.green : Colors.grey),
+              onPressed: () {
+                store.addFavourite(pokemon);
+                showSuccessToast(context, 'Added to favourites');
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.thumb_down, color: isFav ? Colors.red : Colors.grey),
+              onPressed: () {
+                if (isFav) {
+                  store.removeFavourite(pokemon);
+                } else {
+                  showErrorToast(context, '${pokemon.name} is not in favourites');
+                }
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _rightPanel(BuildContext context, PokemonModel pokemon) {
+    return Column(
+      children: [
+        AppDataBar(label: "HP", value: pokemon.hp),
+        AppDataBar(label: "Attack", value: pokemon.attack),
+        AppDataBar(label: "Defense", value: pokemon.defense),
+        AppDataBar(label: "Speed", value: pokemon.speed),
+        const SizedBox(height: 20),
+        AppButton(
+          text: 'See Favourites',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const PokemonFavouritesPage()),
+            );
+          },
+        ),
+      ],
     );
   }
 }
