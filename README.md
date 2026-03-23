@@ -1,17 +1,38 @@
-# king_price_pokemon_application
+# King Price Pokémon Application
 
-A new Flutter project.
+A Flutter application showcasing Pokémon data with Firebase integration, theming, and favourites management.
+
+---
+
+## Features
+- Browse a list of Pokémon with images and stats
+- Search bar with animations and icons
+- Detailed Pokémon view with stats and favourite toggle
+- Favourite list with swipe-to-remove functionality
+- Light/Dark theme support
+- Firebase integration for platform setup
+
+---
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
+- Flutter SDK **3.41.5** (released 23 March 2026)
+- Firebase project configured for both iOS and Android
 
-A few resources to get you started if this is your first Flutter project:
+### Setup Steps
+1. **Install Flutter SDK**  
+   Ensure you have Flutter 3.41.5 installed and configured.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+2. **Configure Firebase iOS**  
+   Attach the `GoogleService-Info.plist` file to the iOS Runner project.  
+   *(File included in submission)*
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+3. **Configure Firebase Android**  
+   Place the `google-services.json` file inside `android/app`.  
+   *(File included in submission)*
+
+4. **Build & Run**  
+   ```bash
+   flutter pub get
+   flutter run
