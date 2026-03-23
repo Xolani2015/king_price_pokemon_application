@@ -3,6 +3,7 @@ import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
 import 'package:king_price_pokemon_application/views/login/login_page.dart';
 import 'package:king_price_pokemon_application/widgets/app_button.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AppDialog extends StatelessWidget {
   final String header;
@@ -30,7 +31,10 @@ class AppDialog extends StatelessWidget {
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
 
       child: SizedBox(
-        height: AppSizes(context).height * 0.25,
+        height: kIsWeb
+            ? AppSizes(context).space.xxlarge * 0.9
+            : AppSizes(context).space.xxlarge * 1.1,
+        width: AppSizes(context).space.jumbo,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -38,7 +42,7 @@ class AppDialog extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    height: AppSizes(context).space.large * 2.5,
+                    height: AppSizes(context).space.medium,
                     decoration: BoxDecoration(
                       color: AppColors.primary,
                       borderRadius: const BorderRadius.only(
@@ -50,16 +54,11 @@ class AppDialog extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          sideIcon,
-                          size: AppSizes(context).space.large,
-                          color: AppColors.secondaryIcon,
-                        ),
                         const SizedBox(width: 16),
                         Text(
                           header,
                           style: TextStyle(
-                            fontSize: AppSizes(context).font.medium,
+                            fontSize: AppSizes(context).font.large,
                             color: AppColors.secondaryText,
                             fontWeight: FontWeight.bold,
                           ),
@@ -74,7 +73,11 @@ class AppDialog extends StatelessWidget {
               child: Center(
                 child: Text(
                   paragraph,
-                  style: Theme.of(context).textTheme.bodyLarge,
+                  style: TextStyle(
+                    fontSize: kIsWeb
+                        ? AppSizes(context).font.large * 0.7
+                        : AppSizes(context).font.large * 0.5,
+                  ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -82,15 +85,16 @@ class AppDialog extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Padding(
-                  padding: EdgeInsetsGeometry.symmetric(horizontal: AppSizes(context).width * 0.1),
+                  padding: EdgeInsetsGeometry.symmetric(
+                    horizontal: AppSizes(context).padding.small,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Expanded(
                         flex: 7,
                         child: AppButton(
-                          height: AppSizes(context).height * 0.04,
-
+                          height: AppSizes(context).space.small,
                           text: 'Yes',
                           onPressed: () {
                             Navigator.push(
@@ -105,7 +109,7 @@ class AppDialog extends StatelessWidget {
                         flex: 7,
                         child: AppButton(
                           text: 'No',
-                          height: AppSizes(context).height * 0.04,
+                          height: AppSizes(context).space.small,
                           isSecondaryButton: true,
                           onPressed: () => Navigator.pop(context),
                         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AppSizes {
   final BuildContext context;
@@ -8,39 +9,46 @@ class AppSizes {
   double get width => MediaQuery.of(context).size.width;
   double get height => MediaQuery.of(context).size.height;
 
-  AppPadding get padding => AppPadding(width);
-  AppFont get font => AppFont(width);
-  AppSpace get space => AppSpace(width);
+  AppPadding get padding => AppPadding(height);
+  AppFont get font => AppFont(height);
+  AppSpace get space => AppSpace(height);
 }
 
 class AppPadding {
-  final double width;
+  final double height;
 
-  AppPadding(this.width);
+  AppPadding(this.height);
 
-  EdgeInsets get small => EdgeInsets.all(width * 0.02);
-  EdgeInsets get medium => EdgeInsets.all(width * 0.04);
-  EdgeInsets get large => EdgeInsets.all(width * 0.06);
+  double get small => kIsWeb ? height * 0.03 : height * 0.02;
+  double get medium => kIsWeb ? height * 0.06 : height * 0.04;
+  double get large => kIsWeb ? height * 0.1 : height * 0.06;
 }
 
 class AppFont {
-  final double width;
+  final double height;
 
-  AppFont(this.width);
+  AppFont(this.height);
 
-  double get small => width * 0.03;
-  double get medium => width * 0.045;
-  double get large => width * 0.075;
+  double get small => kIsWeb ? height * 0.02 : height * 0.0;
+  double get medium => kIsWeb ? height * 0.02 : height * 0.02;
+  double get large => kIsWeb ? height * 0.04 : height * 0.04;
+  double get xlarge => kIsWeb ? height * 0.12 : height * 0.06;
+  double get xxlarge => kIsWeb ? height * 0.18 : height * 0.08;
+  double get xxxlarge => kIsWeb ? height * 0.25 : height * 0.1;
+  double get jumbo => kIsWeb ? height * 0.35 : height * 0.12;
 }
 
 class AppSpace {
-  final double width;
+  final double height;
 
-  AppSpace(this.width);
-
-  double get small => width * 0.03;
-  double get medium => width * 0.04;
-  double get large => width * 0.07;
-  double get xlarge => width * 0.15;
-  double get xxlarge => width * 0.5;
+  AppSpace(this.height);
+  double get xxsmall => kIsWeb ? height * 0.04 : height * 0.03;
+  double get xsmall => kIsWeb ? height * 0.06 : height * 0.04;
+  double get small => kIsWeb ? height * 0.08 : height * 0.06;
+  double get medium => kIsWeb ? height * 0.1 : height * 0.08;
+  double get large => kIsWeb ? height * 0.2 : height * 0.1;
+  double get xlarge => kIsWeb ? height * 0.3 : height * 0.2;
+  double get xxlarge => kIsWeb ? height * 0.4 : height * 0.25;
+  double get xxxlarge => kIsWeb ? height * 0.5 : height * 0.4;
+  double get jumbo => kIsWeb ? height * 0.6 : height * 0.9;
 }

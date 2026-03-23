@@ -24,16 +24,17 @@ class AppColors {
   static const searchTextAndBorder = Colors.blueGrey;
 
   // Dark mode colors
-  static const darkBackground = Color.fromARGB(255, 25, 25, 25);
+  static const darkBackground = Color.fromARGB(255, 19, 19, 19);
   static const darkText = Colors.white;
   static const darkCardShadow = Color.fromARGB(31, 222, 222, 222);
-  static const darkSecondaryPrimaryBackground = Color.fromARGB(255, 34, 34, 34);
+  static const darkSecondaryPrimaryBackground = Color.fromARGB(255, 21, 21, 21);
   static const darkPrimaryButtonBackground = primary;
   static const darkPrimaryIcon = Colors.white;
   static const darkSecondaryIcon = primary;
   static const darkIconContinanerBackground = Color.fromARGB(255, 66, 66, 66);
   static const darkPrimaryText = Color.fromARGB(255, 184, 184, 184);
   static const darkTertiaryText = Color.fromARGB(255, 255, 255, 255);
+  static const darkSearchTextAndBorder = Color.fromARGB(255, 181, 190, 194);
 }
 
 final ThemeData lightTheme = ThemeData(

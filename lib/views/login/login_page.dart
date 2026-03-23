@@ -11,6 +11,7 @@ import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_textfield.dart';
 import 'package:king_price_pokemon_application/widgets/app_toast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -33,36 +34,53 @@ class _LoginPageState extends State<LoginPage> {
           title: 'log In',
           currentPage: AppPage.login,
           isShowTopBar: true,
-          // hasBack: true,
           showFloatingActionButton: true,
           page: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
+            padding: kIsWeb
+                ? EdgeInsets.symmetric(horizontal: AppSizes(context).padding.large * 4)
+                : const EdgeInsets.all(16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
                   'LOG IN',
                   style: TextStyle(
-                    fontSize: AppSizes(context).font.large,
+                    fontSize: kIsWeb
+                        ? AppSizes(context).font.large * 1.3
+                        : AppSizes(context).font.large,
                     color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: AppSizes(context).space.medium),
+                SizedBox(
+                  height: kIsWeb
+                      ? AppSizes(context).space.small * 0.1
+                      : AppSizes(context).space.small * 0.5,
+                ),
                 Text(
                   'Enter your credentials to access your account',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: AppSizes(context).font.medium,
+                    fontSize: kIsWeb
+                        ? AppSizes(context).font.medium * 1.3
+                        : AppSizes(context).font.medium,
                     color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                SizedBox(height: AppSizes(context).space.medium),
+                SizedBox(
+                  height: kIsWeb ? AppSizes(context).space.small : AppSizes(context).space.xxsmall,
+                ),
                 AppTextField(controller: emailController, label: 'Email'),
-                SizedBox(height: AppSizes(context).space.small),
+                SizedBox(
+                  height: kIsWeb
+                      ? AppSizes(context).space.xxsmall * 0.5
+                      : AppSizes(context).space.xxsmall * 0.5,
+                ),
                 AppTextField(controller: passwordController, label: 'Password', obscureText: true),
-                SizedBox(height: AppSizes(context).space.large),
+                SizedBox(
+                  height: kIsWeb ? AppSizes(context).space.small : AppSizes(context).space.xxsmall,
+                ),
                 AppButton(
                   text: 'LOG IN',
                   isLoading: vm.isLoading,
@@ -86,9 +104,13 @@ class _LoginPageState extends State<LoginPage> {
                     }
                   },
                 ),
-                SizedBox(height: AppSizes(context).space.small),
+                SizedBox(
+                  height: kIsWeb
+                      ? AppSizes(context).space.small * 0.4
+                      : AppSizes(context).space.xxsmall * 0.5,
+                ),
                 AppButton(
-                  text: 'REGSITER',
+                  text: 'REGISTER',
                   isSecondaryButton: true,
                   onPressed: () async {
                     Navigator.pushReplacement(
