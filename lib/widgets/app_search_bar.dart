@@ -34,7 +34,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar> {
               child: TextField(
                 controller: _searchController,
                 decoration: const InputDecoration(
-                  hintText: 'Search Pokémon...',
+                  hintText: 'Search Pokemon...',
                   hintStyle: TextStyle(color: AppColors.searchTextAndBorder),
                   border: InputBorder.none,
                 ),

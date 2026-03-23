@@ -7,7 +7,6 @@ import 'package:king_price_pokemon_application/provider/provider_store.dart';
 import 'package:king_price_pokemon_application/widgets/app_partial_swip_card.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PokemonFavouritesPage extends StatelessWidget {
   const PokemonFavouritesPage({super.key});

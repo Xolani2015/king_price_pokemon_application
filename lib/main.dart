@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
-          title: 'King Price Pokémon',
+          title: 'King Price Pokemon',
           theme: lightTheme,
           darkTheme: darkTheme,
           themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,

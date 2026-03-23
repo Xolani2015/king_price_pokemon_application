@@ -12,7 +12,7 @@ class PokemonService {
       final data = json.decode(response.body);
       final results = List<Map<String, dynamic>>.from(data['results']);
 
-      final detailedResults = await Future.wait(
+      final decodedResults = await Future.wait(
         results.map((pokemon) async {
           final detailRes = await http.get(Uri.parse(pokemon['url']));
           if (detailRes.statusCode == 200) {
@@ -30,9 +30,9 @@ class PokemonService {
         }),
       );
 
-      return detailedResults;
+      return decodedResults;
     } else {
-      throw Exception('Failed to load Pokémon');
+      throw Exception('Failed');
     }
   }
 }

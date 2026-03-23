@@ -11,6 +11,7 @@ import 'package:king_price_pokemon_application/widgets/app_data_bars.dart';
 import 'package:king_price_pokemon_application/widgets/app_template.dart';
 import 'package:king_price_pokemon_application/widgets/app_toast.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class PokemonDetailPage extends StatelessWidget {
   const PokemonDetailPage({super.key});
@@ -25,13 +26,13 @@ class PokemonDetailPage extends StatelessWidget {
         final PokemonModel? pokemon = vm.pokemonDetails;
 
         return AppTemplate(
-          title: pokemon?.name ?? 'Pokémon Details',
+          title: pokemon?.name ?? 'Pokemon Details',
           currentPage: AppPage.pokemonDetail,
           isShowTopBar: true,
           hasBack: true,
-          showFloatingActionButton: true,
+          showFloatingActionButton: false,
           page: pokemon == null
-              ? const Center(child: Text('No Pokémon selected'))
+              ? const Center(child: Text('No Pokemon selected'))
               : Consumer<PokemonStore>(
                   builder: (context, store, child) {
                     final isFav = store.isFavourite(pokemon);
@@ -41,15 +42,17 @@ class PokemonDetailPage extends StatelessWidget {
                     return SingleChildScrollView(
                       child: Padding(
                         padding: EdgeInsets.symmetric(
-                          horizontal: AppSizes(context).padding.medium,
-                          vertical: AppSizes(context).padding.medium,
+                          horizontal: kIsWeb ? AppSizes(context).padding.medium : 0,
+                          vertical: kIsWeb ? AppSizes(context).padding.medium : 0,
                         ),
                         child: Column(
                           children: [
                             Text(
                               'Pokemon Details',
                               style: TextStyle(
-                                fontSize: AppSizes(context).font.large,
+                                fontSize: kIsWeb
+                                    ? AppSizes(context).font.large
+                                    : AppSizes(context).font.large * 0.7,
                                 color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -103,13 +106,20 @@ class PokemonDetailPage extends StatelessWidget {
               color: isDark ? Colors.grey.shade900 : Colors.grey.shade100,
               borderRadius: BorderRadius.circular(16),
             ),
-            child: Image.network(pokemon.image, height: sizes.height * 0.25, fit: BoxFit.contain),
+            child: Image.network(
+              pokemon.image,
+              height: kIsWeb ? sizes.height * 0.25 : sizes.height * 0.15,
+              fit: BoxFit.contain,
+            ),
           ),
         SizedBox(height: sizes.height * 0.02),
         Text(
           pokemon.name,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: sizes.font.large * 1.2, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: kIsWeb ? sizes.font.large * 1.2 : sizes.font.large * 0.8,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         SizedBox(height: sizes.height * 0.02),
         if (isFav)

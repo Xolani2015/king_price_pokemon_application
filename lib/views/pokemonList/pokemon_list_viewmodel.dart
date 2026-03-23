@@ -34,7 +34,7 @@ class PokemonListViewmodel extends ChangeNotifier {
       pokemonList.addAll(newPokemon);
       offset += limit;
     } catch (e) {
-      debugPrint('Error fetching Pokémon: $e');
+      debugPrint('Error fetching Pokemon: $e');
     }
 
     isLoading = false;

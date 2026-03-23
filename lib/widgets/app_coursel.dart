@@ -17,13 +17,13 @@ class _AppCourselState extends State<AppCoursel> {
 
   final List<Map<String, String>> items = [
     {
-      'header': 'Catch Pokémon',
-      'paragraph': 'Explore the world and catch your favorite Pokémon.',
+      'header': 'Catch Pokemon',
+      'paragraph': 'Explore the world and catch your favorite Pokemon.',
       'image': 'assets/images/pokemon1.webp',
     },
     {
       'header': 'Train Hard',
-      'paragraph': 'Level up your Pokémon and prepare for battles.',
+      'paragraph': 'Level up your Pokemon and prepare for battles.',
       'image': 'assets/images/pokemon2.webp',
     },
     {
@@ -33,7 +33,7 @@ class _AppCourselState extends State<AppCoursel> {
     },
     {
       'header': 'Become a Champion',
-      'paragraph': 'Win tournaments and become the ultimate Pokémon master.',
+      'paragraph': 'Win tournaments and become the ultimate Pokemon master.',
       'image': 'assets/images/pokemon4.webp',
     },
   ];

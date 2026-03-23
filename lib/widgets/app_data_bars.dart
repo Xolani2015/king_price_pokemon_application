@@ -41,27 +41,27 @@ class AppDataBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final safeValue = value ?? 0;
     final progress = (safeValue / 150).clamp(0.0, 1.0);
-
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: kIsWeb
             ? AppSizes(context).space.height * 0.012
-            : AppSizes(context).space.height * 0.008,
+            : AppSizes(context).space.height * 0.001,
       ),
       padding: EdgeInsets.symmetric(
         horizontal: AppSizes(context).space.height * 0.05,
         vertical: AppSizes(context).space.height * 0.015,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(14),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 6,
-            offset: const Offset(0, 3),
+            color: isDark ? AppColors.darkSearchTextAndBorder : AppColors.searchTextAndBorder,
+            blurRadius: kIsWeb ? 6 : 1,
+            offset: Offset(0, kIsWeb ? 3 : 1),
           ),
         ],
       ),
@@ -76,9 +76,9 @@ class AppDataBar extends StatelessWidget {
                 : AppSizes(context).space.height * 0.08,
             child: Text(
               label.toUpperCase(),
-              style: const TextStyle(
+              style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: isDark ? AppColors.darkPrimaryText : AppColors.primaryText,
                 letterSpacing: 1.1,
               ),
             ),
