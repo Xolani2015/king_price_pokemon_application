@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:king_price_pokemon_application/helpers/app_colors.dart';
 import 'package:king_price_pokemon_application/helpers/app_sizes.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AppTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -38,7 +39,7 @@ class _AppTextFieldState extends State<AppTextField> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         SizedBox(
-          height: 60, // increased height
+          height: 60,
           child: TextField(
             controller: widget.controller,
             obscureText: _obscure,
@@ -90,7 +91,12 @@ class _AppTextFieldState extends State<AppTextField> {
                   padding: const EdgeInsets.only(top: 6),
                   child: Text(
                     widget.errorText!,
-                    style: TextStyle(color: Colors.red, fontSize: sizes.font.small),
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: kIsWeb
+                          ? AppSizes(context).font.small
+                          : AppSizes(context).font.large * 0.5,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 )
